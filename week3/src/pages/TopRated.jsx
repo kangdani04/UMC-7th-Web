@@ -1,10 +1,10 @@
-// src/pages/Upcoming.jsx
+// src/pages/TopRated.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '../components/Card';
 import * as S from '../styles/movies.style.js'; // 스타일 파일 경로에 맞게 수정
 
-const Upcoming = () => {
+const TopRated = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,7 @@ const Upcoming = () => {
         const getMovies = async () => {
             try {
                 const response = await axios.get(
-                    'https://api.themoviedb.org/3/movie/upcoming', {
+                    'https://api.themoviedb.org/3/movie/top_rated', {
                     params: {
                         api_key: import.meta.env.VITE_TMDB_API_KEY,
                         language: 'ko-KR',
@@ -41,4 +41,4 @@ const Upcoming = () => {
     );
 };
 
-export default Upcoming;
+export default TopRated;
