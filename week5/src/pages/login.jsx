@@ -1,5 +1,63 @@
+import styled from "styled-components";
+import useForm from "../hooks/use-form.js";
+import {validateLogin} from "../utils/validate.js";
+
+const LoginPage = () => {
+    const login = useForm( {
+        initialValue:{
+            email: '',
+            password: '',
+        },
+        validate: validateLogin
+    })
+    
+    console.log(login.values, login.errors, login.touched)
+
+    const handlePressLogin = () => {
+        console.log(login.values.email, login.values.password)
+    }
+    return (
+        <Container>
+            <Input error={login.touched.email && login.errors.email} type={'email'} placeholder={'이메일을 입력해주세요.'} {...login.getTextInputProps('email')}/>
+            {login.touched.email && login.errors.email && <ErrorText>{login.errors.email}</ErrorText>}
+            <Input error={login.touched.password && login.errors.password}type={'password'} placeholder={'비밀번호를 입력해주세요.'} {...login.getTextInputProps('password')}/>
+            {login.touched.password && login.errors.password && <ErrorText>{login.errors.password}</ErrorText>}
+
+            <button onClick={handlePressLogin}>로그인</button>
+        </Container>
+    )
+}
+
+export default LoginPage;
+
+const Container=styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+const Input=styled.input`
+    margin: 10px 0;
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    border: ${props => props.error ? '4px solid red' : '1px solid #ccc'};
+
+    &:focus {
+        border-color: #007bff;
+    }
+`
+
+const ErrorText=styled.h1`
+    color: red;
+    font-size: 12px;
+`
+
+
 // login.jsx
-import { useForm } from 'react-hook-form';
+/*import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
@@ -71,7 +129,7 @@ const Container = styled.div`
 const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* 입력 박스 간격 */
+    margin-bottom: 20px; 
 `;
 
 const Input = styled.input`
@@ -82,7 +140,7 @@ const Input = styled.input`
     transition: border-color 0.3s;
 
     &:focus {
-        border-color: #ff4081; /* 포커스 시 테두리 색상 */
+        border-color: #ff4081; 
     }
 `;
 
@@ -94,7 +152,7 @@ const ErrorMessage = styled.p`
 
 const SubmitButton = styled.button`
     padding: 10px 20px;
-    background-color: ${({ disabled }) => (disabled ? 'gray' : '#ff4081')}; /* 비활성화 시 회색 */
+    background-color: ${({ disabled }) => (disabled ? 'gray' : '#ff4081')}; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -102,8 +160,10 @@ const SubmitButton = styled.button`
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: ${({ disabled }) => (disabled ? 'gray' : '#ff0077')}; /* 비활성화 시 색상 유지 */
+        background-color: ${({ disabled }) => (disabled ? 'gray' : '#ff0077')}; 
     }
 `;
 
-export default LoginPage;
+export default LoginPage; */
+
+
