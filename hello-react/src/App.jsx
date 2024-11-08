@@ -1,50 +1,18 @@
 import './App.css'
-import { useState } from 'react';
+import { useContext } from 'react';
 import Button from './Button';
 import Input from './Input';
+import { TodoContext } from './context/TodoContext';
 
 function App() {
-  const [todos, setTodos] = useState([
-    { id: 1, task: '투두 만들어보기'},
-    { id: 2, task: '깡별선채'},
-  ]);
-  
-  const [text, setText]= useState('');
-  console.log(text);
-  
-  const [editingID, setEditingID] = useState('');
-  console.log(editingID);
-
-  const [editText, setEditText] = useState('');
-  console.log(editText);
-
-  // 렌더링 방지
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  // 1. 추가하기
-  const addTodo = () => {
-    setTodos((prev) => [
-      ...prev, //이전 값 복사
-      { id: Math.floor(Math.random() * 100) + 2, task: text },
-    ]);
-    setText(''); //입력한 후 창 초기화
-  };
-  
-  // 2. 삭제하기
-  const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((item) => item.id !== id));
-  }; // id를 배열에서 지워서 남은 id만 표시
-
-  // 3. 수정하기
-  const updateTodo = (id, text) => {
-    setTodos((prev) => 
-      prev.map((item) => (item.id === id ? {...item, task:text}:item))
-    );
-    setEditingID('');
-  };
-
+  const {
+    todos,
+    text, setText, 
+    editingID, setEditingID, 
+    editText, setEditText, 
+    handleSubmit, 
+    addTodo, deleteTodo, updateTodo
+  } = useContext(TodoContext)
   return (
   <>
     <header>
@@ -68,7 +36,7 @@ function App() {
     <section>
       <div className="todo-list">
         {todos.map((todo) => (
-          <div ket={todo.id} className="todo-item">
+          <div key={todo.id} className="todo-item">
           {/*수정이 아닐 때 */}
           {editingID !== todo.id ? (
             <>
