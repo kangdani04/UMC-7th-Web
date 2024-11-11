@@ -27,7 +27,7 @@ export default Select;
 const ImageContainer = styled.div`
     display: flex;
     flex-wrap: wrap; /* 요소들이 줄바꿈되도록 설정 */
-    justify-content: left; /* 자식 요소 간의 간격을 균등하게 조절 */
+    justify-content: space-around;
     align-items: center;
 `;
 
@@ -37,7 +37,8 @@ const Card = styled.div`
     border-radius:10px;
     color:white;
     overflow:hidden;
-    margin:15px;
+    margin: 0px;
+    margin-bottom: 15px;
     width: 330px; /* px 단위를 추가하여 적절한 크기 지정 */
     height:230px; /* px 단위를 추가하여 적절한 크기 지정 */
     background-size: cover;

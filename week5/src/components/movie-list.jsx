@@ -1,23 +1,23 @@
-import Movie from './movie.jsx';
+import Movie from './Card/movie';
 import styled from "styled-components";
 import useCustomFetch from '../hooks/useCustomFetch.js';
-
+import CardListSkeleton from './Card/Skeleton/card-list-skeleton.jsx';
 
 const MovieList = ({ url }) => {
     const {data: movies, isLoading, isError}=useCustomFetch({url});
     
     if(isLoading){
         return (
-            <>
-                <h1>로딩 중 입니다</h1>
-            </>
+            <CardList>
+                <CardListSkeleton number={20}/>
+             </CardList>
         )
      }
 
     if(isError){
         return (
              <>
-                 <h1>오류 발생 : 관리자</h1>
+                <h1>오류 발생</h1>
              </>
        )
     }

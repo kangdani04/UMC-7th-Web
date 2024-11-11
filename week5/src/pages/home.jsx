@@ -1,7 +1,8 @@
 // home.jsx
+import MovieList from "../components/movie-list";
 const HomePage = () => {
     return (
-        <h1>Home Page</h1>
+        <MovieList url={`${import.meta.env.VITE_TMDB_MOVIE_API_URL}/movie/top_rated`}/>
     );
 };
 

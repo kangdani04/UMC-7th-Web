@@ -17,8 +17,12 @@ function validateUser(values){
     return errors;
 }
 
+function validateSignUp(values) {
+    return validateUser(values);
+}
+
 function validateLogin(values) {
     return validateUser(values);
 }
 
-export {validateLogin}
+export {validateLogin, validateSignUp};
