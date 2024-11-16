@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useQuery } from '@tanstack/react-query';
 import Credit from "./credit";
-import CardSkeleton from "../components/card-skeleton"; // Skeleton UI
+import CardSkeleton from "../components/Card/Skeleton/card-skeleton"; // Skeleton UI
 
 const fetchMovieCredits = async (url) => {
     const response = await fetch(url);

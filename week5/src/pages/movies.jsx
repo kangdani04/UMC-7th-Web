@@ -1,56 +1,83 @@
-import { useQuery } from '@tanstack/react-query';
-import MovieList from "../components/movie-list";
-import CardSkeleton from "../components/Skeleton/card-skeleton"; // Skeleton UI
+import React from "react";
 import styled from "styled-components";
-
-const fetchMovies = async (url) => {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error('Failed to fetch movies');
-    }
-    return response.json();
-};
+import useInfiniteFetchMovies from "../hooks/useInfiniteFetchMovies";
+import CardListSkeleton from "../components/Card/Skeleton/card-list-skeleton";
+import CardSkeleton from "../components/Card/Skeleton/card-skeleton";  // CardSkeleton 임포트 추가
+import MovieCard from "../components/Card/movie";
+import { useInView } from "react-intersection-observer";
+import LoadingSpinner from "../components/LoadingSpinner"; // 로딩 스피너
 
 const MoviesPage = ({ url }) => {
-    const { data, isLoading, isError, error } = useQuery(
-        ['movies', url], // Query Key
-        () => fetchMovies(`${import.meta.env.VITE_TMDB_MOVIE_API_URL}${url}`), // Fetch Function
-        {
-            staleTime: 1000 * 60 * 5, // 5 minutes
-            cacheTime: 1000 * 60 * 10, // 10 minutes
-        }
-    );
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteFetchMovies(url);
 
+  const { ref, inView } = useInView({
+    triggerOnce: false, // 여러 번 감지되도록 설정
+    threshold: 1.0, // 하단에 도달 시 트리거
+  });
+
+  React.useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  // 로딩 상태가 너무 짧을 때를 대비해, 강제로 1초 딜레이를 추가
+  const [loadingDelay, setLoadingDelay] = React.useState(true);
+
+  React.useEffect(() => {
     if (isLoading) {
-        return (
-            <SkeletonWrapper>
-                {Array.from({ length: 10 }).map((_, index) => (
-                    <CardSkeleton key={index} />
-                ))}
-            </SkeletonWrapper>
-        );
+      const timer = setTimeout(() => setLoadingDelay(false), 1000); // 1초 후 로딩 상태 종료
+      return () => clearTimeout(timer);
     }
+  }, [isLoading]);
 
-    if (isError) {
-        return <ErrorMessage>Error: {error.message}</ErrorMessage>;
-    }
+  if (isLoading && loadingDelay) {
+    return (
+      <Grid>
+        <CardListSkeleton number={10} /> {/* 10개의 스켈레톤 UI 표시 */}
+        <LoadingSpinner />
+      </Grid>
+    );
+  }
 
-    return <MovieList movies={data.results} />;
+  if (isError) {
+    return <p>Error loading movies. Please try again later.</p>;
+  }
+
+  return (
+    <Grid>
+      {data.pages.map((page) =>
+        page.results.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))
+      )}
+      {/* 기존 스켈레톤 UI 추가 */}
+      {isFetchingNextPage && (
+        <CardSkeletonWrapper>
+          <CardSkeleton number={10} />
+          <LoadingSpinner>Loading more movies...</LoadingSpinner>
+        </CardSkeletonWrapper>
+      )}
+      <div ref={ref} />
+    </Grid>
+  );
 };
 
 export default MoviesPage;
 
-const SkeletonWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    padding: 16px;
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
 `;
 
-const ErrorMessage = styled.div`
-    color: red;
-    font-size: 18px;
-    text-align: center;
-    margin-top: 20px;
+const CardSkeletonWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
 `;

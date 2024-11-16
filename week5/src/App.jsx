@@ -1,5 +1,6 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // 페이지 컴포넌트들 import
 import HomePage from './pages/home.jsx';
@@ -13,6 +14,9 @@ import SearchPage from './pages/search.jsx';
 import MoviesLayout from './layout/movies-layout.jsx';
 import MovieDetailPage from './pages/movieDetail.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+
+// QueryClient 생성
+const queryClient = new QueryClient();
 
 // 라우팅 설정
 const router = createBrowserRouter([
@@ -74,7 +78,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-            <RouterProvider router={router}/>
+      {/* QueryClientProvider로 앱을 감싸기 */}
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </AuthProvider>
   );
 }

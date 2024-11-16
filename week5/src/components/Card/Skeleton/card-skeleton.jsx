@@ -1,15 +1,19 @@
 import styled,{keyframes} from "styled-components";
-const CardSkeleton=()=>{
+const CardSkeleton = ({ number }) => {
     return (
-        <Container>
-            <CardMain/>
+      <>
+        {Array.from({ length: number }).map((_, index) => (
+          <Container key={index}>
+            <CardMain />
             <TextWrapper>
-                <TitleBox/>
-                <DescriptionBox/>
+              <TitleBox />
+              <DescriptionBox />
             </TextWrapper>
-        </Container>
-    )
-}
+          </Container>
+        ))}
+      </>
+    );
+  };
 
 export default CardSkeleton;
 
@@ -30,9 +34,9 @@ const Container=styled.div`
 
 
 const CardMain=styled.div`
-    width: 140px;; 
+    width: 140px;
     height: 190px; 
-    background:#e0e0e0;;
+    background:#e0e0e0;
     border-radius:10px;
     overflow:hidden;
     animation:${skeleton} 1.5s infinite linear alternate;
@@ -48,14 +52,14 @@ const TextWrapper=styled.div`
 `
 
 const TitleBox=styled.div`
-    background:#e0e0e0;;
+    background:#e0e0e0;
     height:14px;
     border-radius:5px;
     animation:${skeleton} 1.5s infinite linear alternate;
 `
 
 const DescriptionBox=styled.div`
-    background:#e0e0e0;;
+    background:#e0e0e0;
     height:10px;
     border-radius:5px;
     animation:${skeleton} 1.5s infinite linear alternate;
