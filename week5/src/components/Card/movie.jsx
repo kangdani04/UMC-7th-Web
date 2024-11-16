@@ -35,6 +35,10 @@ const Card = styled.div`
 `;
 
 const StyledImg=styled.img`
+    width: 140px;; 
+    height: 190px; 
+    object-fit:cover;
+    margin-bottom:8px;
     object-fit:cover;
     border-radius: 10px; /* 모서리를 둥글게 설정 */
 `;
