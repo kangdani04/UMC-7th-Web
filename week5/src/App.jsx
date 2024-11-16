@@ -39,19 +39,19 @@ const router = createBrowserRouter([
           },
           {
             path: 'popular',
-            element: <MoviesPage url='/movie/popular?language=ko-KR&page=1' />,
+            element: <MoviesPage url='/movie/popular?language=ko-KR' />,
           },
           {
             path: 'now-playing',
-            element: <MoviesPage url='/movie/now_playing?language=ko-KR&page=1' />,
+            element: <MoviesPage url='/movie/now_playing?language=ko-KR' />,
           },
           {
             path: 'top-rated',
-            element: <MoviesPage url='/movie/top_rated?language=ko-KR&page=1' />,
+            element: <MoviesPage url='/movie/top_rated?language=ko-KR' />,
           },
           {
             path: 'up-coming',
-            element: <MoviesPage url='/movie/upcoming?language=ko-KR&page=1' />,
+            element: <MoviesPage url='/movie/upcoming?language=ko-KR' />,
           },
           {
             path: ':movieId',
