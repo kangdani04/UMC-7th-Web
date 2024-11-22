@@ -1,0 +1,5 @@
+/* 리스트 컨테이너 관련 스타일만 유지 */
+.todo-list-container {
+    margin-top: 30px;
+    padding: 20px;
+}

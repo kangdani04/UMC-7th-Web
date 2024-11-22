@@ -1,0 +1,67 @@
+/* 개별 아이템 스타일 */
+.todo-item {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+.todo-item h3 {
+    font-size: 1.5rem;
+    cursor: pointer; /* 제목 클릭 가능 */
+}
+
+.todo-item p {
+    font-size: 1rem;
+}
+
+/* 수정 모드 스타일 */
+.edit-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-mode input,
+.edit-mode textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.edit-mode button {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* 업데이트 버튼 */
+.edit-mode .update-button {
+    background-color: #5866fb; /* 파란색 */
+    color: white;
+}
+
+.edit-mode .update-button:hover {
+    background-color: #4756cc;
+}
+
+/* 취소 버튼 */
+.edit-mode .cancel-button {
+    background-color: #ff655a; /* 빨간색 */
+    color: white;
+}
+
+.edit-mode .cancel-button:hover {
+    background-color: #e64b42;
+}
+
+/* 기본 버튼 hover 효과 */
+button:hover {
+    opacity: 0.8;
+}
