@@ -3,10 +3,14 @@
 import styled from 'styled-components';
 import { IoMdSearch } from "react-icons/io";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaFilm } from "react-icons/fa"; 
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = () => {
     const navigate=useNavigate();
+    const { isLogin } = useAuth();
+
     return (
         <Side>
             <Category>
@@ -21,6 +25,19 @@ const Sidebar = () => {
                     <Text>영화</Text>
                 </StyledLink>
             </Category>
+            <Category>
+                <StyledLink onClick={() => navigate(`genres`)}>
+                    <FaFilm />
+                    <Text>장르별 영화</Text>
+                </StyledLink>
+            </Category>
+            {isLogin && (
+                <Category>
+                <StyledLink onClick={() => navigate('profile')}>
+                    <Text>내 정보</Text>
+                </StyledLink>
+                </Category>
+            )}
         </Side>
     );
 };

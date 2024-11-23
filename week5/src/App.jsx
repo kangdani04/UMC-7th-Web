@@ -13,6 +13,8 @@ import LoginPage from './pages/login.jsx';
 import SearchPage from './pages/search.jsx';
 import MoviesLayout from './layout/movies-layout.jsx';
 import MovieDetailPage from './pages/movieDetail.jsx';
+import GenrePage from './pages/genre.jsx';
+import ProfilePage from './pages/profile.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 
 // QueryClient 생성
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />,
+      },
+      {
+        path: 'genres',
+        element: <GenrePage />,
+      },
+      {
+        path: 'profile',
+        element: <ProfilePage />, 
       },
     ],
   },

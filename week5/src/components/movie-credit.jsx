@@ -1,9 +1,7 @@
-import styled from "styled-components";
 import { useQuery } from '@tanstack/react-query';
-import Credit from "./credit";
-import CardSkeleton from "../components/Card/Skeleton/card-skeleton"; // Skeleton UI
+import styled from "styled-components";
 
-const fetchMovieCredits = async (url) => {
+const fetchMovieCredit = async (url) => {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error('Failed to fetch movie credits');
@@ -12,24 +10,16 @@ const fetchMovieCredits = async (url) => {
 };
 
 const MovieCredit = ({ url }) => {
-    const { data: credit, isLoading, isError, error } = useQuery(
-        ['movieCredits', url], // Query Key
-        () => fetchMovieCredits(`${import.meta.env.VITE_TMDB_MOVIE_API_URL}${url}`), // Fetch Function
-        {
-            staleTime: 1000 * 60 * 5, // 5 minutes
-            cacheTime: 1000 * 60 * 10, // 10 minutes
-        }
-    );
+    const { data: credits, isLoading, isError, error } = useQuery({
+        queryKey: ['movieCredits', url],  // Query Key는 배열로 전달
+        queryFn: () => fetchMovieCredit(url),  // Query Function은 함수로 전달
+        staleTime: 1000 * 60 * 5, // 5분
+        cacheTime: 1000 * 60 * 10, // 10분
+    });
 
-    // 로딩 처리 - Skeleton UI
+    // 로딩 처리
     if (isLoading) {
-        return (
-            <SkeletonWrapper>
-                {Array.from({ length: 6 }).map((_, index) => (
-                    <CardSkeleton key={index} />
-                ))}
-            </SkeletonWrapper>
-        );
+        return <LoadingMessage>Loading credits...</LoadingMessage>;
     }
 
     // 에러 처리
@@ -38,43 +28,51 @@ const MovieCredit = ({ url }) => {
     }
 
     // 데이터 유효성 확인
-    if (!credit) {
-        return <ErrorMessage>No credit data available.</ErrorMessage>;
+    if (!credits) {
+        return <ErrorMessage>No credits available.</ErrorMessage>;
     }
 
+    // 영화 출연진 렌더링
     return (
-        <Block>
-            {credit.cast?.map((creditItem) => (
-                <Credit key={creditItem.id} credit={creditItem} />
-            ))}
-        </Block>
+        <CreditSection>
+            <h3>Cast</h3>
+            <ul>
+                {credits.cast?.map((cast) => (
+                    <li key={cast.id}>
+                        <span>{cast.name}</span>
+                    </li>
+                ))}
+            </ul>
+        </CreditSection>
     );
 };
 
 export default MovieCredit;
 
-const Block = styled.div`
-    display: flex;
-    flex-wrap: wrap;
+const CreditSection = styled.section`
     color: white;
-    background-color: black;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-`;
-
-const SkeletonWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 20px;
-    justify-content: center;
+    margin-top: 20px;
+    h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin: 5px 0;
+        font-size: 1rem;
+    }
 `;
 
 const ErrorMessage = styled.div`
     color: red;
     font-size: 18px;
     text-align: center;
-    margin-top: 20px;
+`;
+
+const LoadingMessage = styled.div`
+    text-align: center;
+    font-size: 18px;
 `;

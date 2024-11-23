@@ -11,14 +11,12 @@ const fetchMovieDetail = async (url) => {
 };
 
 const MovieDetail = ({ url }) => {
-    const { data: movie, isLoading, isError, error } = useQuery(
-        ['movieDetail', url], // Query Key
-        () => fetchMovieDetail(`${import.meta.env.VITE_TMDB_MOVIE_API_URL}${url}`), // Fetch Function
-        {
-            staleTime: 1000 * 60 * 5, // 5 minutes
-            cacheTime: 1000 * 60 * 10, // 10 minutes
-        }
-    );
+    const { data: credits, isLoading, isError, error } = useQuery({
+        queryKey: ['movieCredits', url],  // Query Key
+        queryFn: () => fetchMovieCredit(url),  // Fetch Function
+        staleTime: 1000 * 60 * 5, // 5 minutes
+        cacheTime: 1000 * 60 * 10, // 10 minutes
+    });
 
     // 로딩 처리 - Skeleton UI
     if (isLoading) {
