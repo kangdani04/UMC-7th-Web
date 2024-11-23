@@ -3,11 +3,9 @@ import React, { useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoContext";
 import TodoItem from "../item/TodoItem";
 import "./TodoList.css";
-
 const TodoList = () => {
     const { todos, setSearchQuery } = useContext(TodoContext);
     const [searchInput, setSearchInput] = useState("");
-
     // debounce 적용
     const debounce = (func, delay) => {
         let timeoutId;
@@ -16,12 +14,10 @@ const TodoList = () => {
             timeoutId = setTimeout(() => func(...args), delay);
         };
     };
-
     const handleInputChange = (e) => {
         setSearchInput(e.target.value);
         handleSearch(e.target.value);
     };
-
     return (
         <div className="todo-list-container">
             {todos.map((todo) => (
@@ -30,5 +26,4 @@ const TodoList = () => {
         </div>
     );
 };
-
 export default TodoList;

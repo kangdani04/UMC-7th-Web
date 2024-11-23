@@ -1,13 +1,10 @@
-// src/components/TodoForm.jsx
 import React, { useContext, useState } from 'react';
 import { TodoContext } from '../../context/TodoContext';
 import './TodoForm.css'; // 스타일 파일 추가
-
 const TodoForm = () => {
     const { addTodo } = useContext(TodoContext);
     const [text, setText] = useState(''); // 제목 상태
     const [content, setContent] = useState(''); // 내용 상태
-
     const handleAddTodo = (e) => {
         e.preventDefault(); // 폼 제출 방지
         if (text.trim() && content.trim()) { // 제목과 내용이 비어 있지 않으면
@@ -16,7 +13,6 @@ const TodoForm = () => {
             setContent(''); // 내용 필드 초기화
         }
     };
-
     return (
         <div className="todo-form-container">
             <input
@@ -42,5 +38,4 @@ const TodoForm = () => {
         </div>
     );
 };
-
 export default TodoForm;

@@ -3,26 +3,21 @@ import React, { useContext, useState } from 'react';
 import { TodoContext } from '../../context/TodoContext';
 import { Link } from 'react-router-dom';
 import './TodoItem.css';
-
 const TodoItem = ({ todo }) => {
     const { deleteTodo, updateTodo, toggleTodoChecked } = useContext(TodoContext);
     const [isEditing, setIsEditing] = useState(false); // 로컬 상태로 편집 여부 관리
     const [editText, setEditText] = useState(todo.title); // 로컬 편집 제목
     const [editContent, setEditContent] = useState(todo.content); // 로컬 편집 내용
-
     const handleSave = () => {
         updateTodo(todo.id, editText, editContent); // 수정된 내용 업데이트
         setIsEditing(false);
     };
-
     const handleDelete = () => {
         deleteTodo(todo.id); // 삭제 함수 호출
     };
-
     const handleCheckboxChange = () => {
         toggleTodoChecked(todo.id); // 완료 여부 토글
     };
-
     return (
         <div className="todo-item">
             {isEditing ? (
@@ -64,5 +59,4 @@ const TodoItem = ({ todo }) => {
         </div>
     );
 };
-
 export default TodoItem;
