@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { useCartStore } from "../store/cartStore";
+import useCartStore from "../store/cartStore";
 import { CartIcon } from "../constants/icons";
 
 const Navbar = () => {

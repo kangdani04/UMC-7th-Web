@@ -1,6 +1,6 @@
 // src/components/CartContainer.jsx
 import CartItem from "./CartItem";
-import { useCartStore } from "../store/cartStore";
+import useCartStore from "../store/cartStore";
 import { useModalStore } from "../store/modalStore";
 
 const CartContainer = () => {

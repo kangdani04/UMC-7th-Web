@@ -1,5 +1,5 @@
 // src/components/ModalButton.jsx
-import { useCartStore } from "../store/cartStore";
+import useCartStore from "../store/cartStore";
 import { useModalStore } from "../store/modalStore";
 
 const ModalButton = () => {

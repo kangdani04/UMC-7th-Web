@@ -1,11 +1,12 @@
 // src/App.jsx
 import { useEffect } from 'react';
-import { useCartStore } from './store/cartStore';
+import useCartStore from './store/cartStore';
 import { useModalStore } from './store/modalStore';
 import Navbar from './components/Navbar';
 import CartContainer from './components/CartContainer';
 import Footer from './components/Footer';
 import ModalPortal from './components/ModalPortal';
+import Modal from './components/Modal';
 
 function App() {
   const { cartItems, calculateTotals } = useCartStore();

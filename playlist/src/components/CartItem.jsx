@@ -1,6 +1,6 @@
 // src/components/CartItem.jsx
 import { ChevronDown, ChevronUp } from "../constants/icons";
-import { useCartStore } from "../store/cartStore";
+import useCartStore from "../store/cartStore";
 
 const CartItem = ({ id, title, singer, price, img, amount }) => {
   const { increase, decrease, removeItem } = useCartStore();
