@@ -6,6 +6,7 @@ import TodoHeader from './components/header/TodoHeader';  // 헤더 컴포넌트
 import TodoList from './components/list/TodoList';  
 import TodoItemDetail from './components/detail/TodoDetailPage';  
 import './App.css';
+
 const App = () => {
   return (
     <TodoContextProvider>
@@ -24,4 +25,5 @@ const App = () => {
     </TodoContextProvider>
   );
 };
+
 export default App;
