@@ -1,38 +1,41 @@
+// src/components/CartItem.jsx
 import { ChevronDown, ChevronUp } from "../constants/icons";
-import { useDispatch } from "react-redux";
-import { increase, decrease, removeItem, clearCart } from "../features/cart/cartSlice";
+import { useCartStore } from "../store/cartStore";
 
 const CartItem = ({ id, title, singer, price, img, amount }) => {
-    const dispatch = useDispatch();
+  const { increase, decrease, removeItem } = useCartStore();
 
-    return (
-        <article className="cart-item">
-            <img src={img} alt={`${title} 이미지`} />
-            <div>
-                <h4>
-                    {title} | {singer}
-                </h4>
+  return (
+    <article className="cart-item">
+      <img src={img} alt={`${title} 이미지`} />
+      <div>
+        <h4>
+          {title} | {singer}
+        </h4>
 
-                <h4 className="item-price">₩ {price}</h4>
-            </div>
-            <div>
-                <button className="amount-btn" onClick={() => dispatch(increase(id))}>
-                    <ChevronUp />
-                </button>
-                <p className="amount">{amount}</p>
+        <h4 className="item-price">₩ {price}</h4>
+      </div>
+      <div>
+        <button className="amount-btn" onClick={() => increase(id)}>
+          <ChevronUp />
+        </button>
+        <p className="amount">{amount}</p>
 
-                <button className="amount-btn" onClick={() => {
-                    if (amount === 1) {
-                        dispatch(removeItem(id));
-                        return;
-                    }
-                    dispatch(decrease(id));
-                }}>
-                    <ChevronDown />
-                </button>
-            </div>
-        </article>
-    );
+        <button
+          className="amount-btn"
+          onClick={() => {
+            if (amount === 1) {
+              removeItem(id);
+              return;
+            }
+            decrease(id);
+          }}
+        >
+          <ChevronDown />
+        </button>
+      </div>
+    </article>
+  );
 };
 
 export default CartItem;

@@ -1,14 +1,15 @@
+// src/components/Modal.jsx
 import ModalButton from "./ModalButton";
 
 const Modal = ({ children }) => {
-    return (
-        <aside className="modal-container" onClick={(e) => {}}>
-            <div className="modal">
-                {children}
-                <ModalButton />
-            </div>
-        </aside>
-    );
+  return (
+    <aside className="modal-container" onClick={(e) => {}}>
+      <div className="modal">
+        {children}
+        <ModalButton />
+      </div>
+    </aside>
+  );
 };
 
 export default Modal;
